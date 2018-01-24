@@ -5,6 +5,8 @@ import { Component, Input } from "@angular/core"
     template: `<img [alt]="titulo" src="{{url}}" class="img-fluid" alt="">` 
 }) 
 export class FotoComponent {
-    @Input() titulo:string
+    @Input() titulo:string = ""
     @Input() url = ""
+             descricao = ""
+             _id
 }
