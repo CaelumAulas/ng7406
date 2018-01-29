@@ -8,5 +8,5 @@ export class FotoComponent {
     @Input() titulo:string = ""
     @Input() url = ""
              descricao = ""
-             _id
+             _id: string
 }

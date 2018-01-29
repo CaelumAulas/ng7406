@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-//import { map } from 'rxjs/operator'
-
-import 'rxjs/add/operator/map'
-import { FotoComponent } from "../foto/foto.component";
 import { Injectable } from "@angular/core";
+
+import { FotoComponent } from "../foto/foto.component";
 
 @Injectable()
 export class FotoService {
@@ -15,7 +13,7 @@ export class FotoService {
     
     constructor(private conexaoApi: HttpClient){}
 
-    listar() {
+    listar(): Observable<FotoComponent[]> {
         return this.conexaoApi.get<FotoComponent[]>(this.url)
     }
 
@@ -30,11 +28,13 @@ export class FotoService {
 
     }
     
-    deletar(foto: FotoComponent){
+    deletar(foto: FotoComponent): Observable<Object> {
         return this.conexaoApi.delete(this.url+foto._id)
     }
 
-    consultar(){}
+    consultar(fotoId: string): Observable<FotoComponent> {
+        return this.conexaoApi.get<FotoComponent>(this.url+fotoId)
+    }
 
     alterar(){}
 }

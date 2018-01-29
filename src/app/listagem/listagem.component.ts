@@ -20,13 +20,23 @@ export class ListagemComponent implements OnInit {
                 )
     }
     
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
     remover(foto: FotoComponent){
         
         this.servico.deletar(foto)
                     .subscribe(
-                        () => console.log(`apagouuuuu ${foto.titulo}`)
+                        () => {                            
+                            
+            this.listaFotos = this.listaFotos.filter(fotoFilter  => fotoFilter != foto )
+                        
+                            console.log(`apagouuuuu ${foto.titulo}`)
+                        }
+                        ,
+                        erro => {
+                            console.log(`opps algo errado aconteceu`)
+                        }
                     )
     }
 }
