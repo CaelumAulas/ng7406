@@ -1,6 +1,6 @@
 <header class="jumbotron">
     <h1 class="text-center">
-        Cadastrar fotos
+        {{titulo}}
     </h1>
 </header>
 <main class="container">
@@ -19,15 +19,15 @@
                     formControlName="titulo"
                     required
                     [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
-                    
-                <span *ngIf="formCadastro.controls.titulo.errors">
-                    <span *ngIf="formCadastro.controls.titulo.errors.required && formCadastro.controls.titulo.touched" class="form-control alert-danger">
-                        Campo obrigatório
-                    </span>
-                    <span *ngIf="formCadastro.controls.titulo.errors.minlength && formCadastro.controls.titulo.touched" class="form-control alert-danger">
-                        Precisa ter pelo menos 3 caracteres
-                    </span>
+                   
+                
+                <span *ngIf="formCadastro.controls.titulo.errors?.required && formCadastro.controls.titulo.touched" class="form-control alert-danger">
+                    Campo obrigatório
                 </span>
+                <span *ngIf="formCadastro.controls.titulo.errors?.minlength && formCadastro.controls.titulo.touched" class="form-control alert-danger">
+                    Precisa ter pelo menos 3 caracteres
+                </span>
+                
             </div>
             <div class="form-group">
                 <label for="">Url*</label>

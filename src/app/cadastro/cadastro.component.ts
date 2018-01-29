@@ -14,6 +14,7 @@ export class CadastroComponent implements OnInit {
     foto = new FotoComponent()
     mensagem = ''
     formCadastro: FormGroup
+    titulo
 
     constructor(private servico: FotoService,
                 private rota: ActivatedRoute,
@@ -22,6 +23,10 @@ export class CadastroComponent implements OnInit {
 
             
             this.validacaoForm()
+
+            rota.data.subscribe(
+                data => this.titulo = data.titulo
+            )
            
             rota.params.subscribe(
                 parametros => {
@@ -39,7 +44,7 @@ export class CadastroComponent implements OnInit {
     validacaoForm(){
 
         this.formCadastro = this.formBuilder.group({
-            titulo: ['', [
+            titulo: ['haha', [
                 Validators.required,
                 Validators.minLength(3)
             ]
@@ -76,8 +81,12 @@ export class CadastroComponent implements OnInit {
                     mensagemServico => {
 
                         this.mensagem = mensagemServico.texto
-                        
                         this.foto = new FotoComponent()
+
+                        setTimeout(
+                            () => this.mensagem = ''
+                            , 1500
+                        )
                     }
                     , erro => console.log(erro)
                 ) 

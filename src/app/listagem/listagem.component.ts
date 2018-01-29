@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FotoService } from "../servicos/foto.service";
 import { FotoComponent } from '../foto/foto.component';
 
@@ -7,7 +7,7 @@ import { FotoComponent } from '../foto/foto.component';
     templateUrl: './listagem.component.html',
     styles: []
 })
-export class ListagemComponent implements OnInit {
+export class ListagemComponent implements OnInit, OnDestroy {
     titulo = 'CaelumPic'
     listaFotos: FotoComponent[] = []
 
@@ -21,6 +21,10 @@ export class ListagemComponent implements OnInit {
     }
     
     ngOnInit() {
+    }
+
+    ngOnDestroy(){
+        
     }
 
     remover(foto: FotoComponent){

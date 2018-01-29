@@ -2,14 +2,18 @@
   <h1 class="text-center">{{titulo}}</h1>
 </header>
 <main class="container">
-  <div class="row mb-4">
-    <div class="col-sm-12">
-      <a routerLink="/cadastro" class="btn btn-primary">Nova foto</a>
+    <div class="row mb-4">
+        <div class="col-sm-12">
+            <form class="input-group">
+                <span class="input-group-prepend">
+                    <a routerLink="/cadastro" class="btn btn-primary">Nova foto</a>
+                </span>
+                <input (input)="$event" #inputBusca type="search" class="form-control">
+            </form>
+        </div>
     </div>
-  </div>
   <div class="row">
-    <painel *ngFor="let foto of listaFotos" titulo="{{foto.titulo}}" class="col-md-2">
-      
+    <painel *ngFor="let foto of listaFotos | filtroPorTitulo:inputBusca.value " titulo="{{foto.titulo}}" class="col-md-2">
       <a [routerLink]="['/cadastro', foto._id]">
         <foto url="{{foto.url}}" titulo="{{foto.titulo}}"></foto>
       </a>
