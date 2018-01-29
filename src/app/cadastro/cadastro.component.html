@@ -1,32 +1,47 @@
 <header class="jumbotron">
     <h1 class="text-center">
-        Cadastrar fotos <br>
-        {{foto.titulo}}
+        Cadastrar fotos
     </h1>
 </header>
 <main class="container">
+    <div *ngIf="mensagem" class="row">
+        <div class="col-sm-12">
+            <p class="alert alert-success">
+                {{mensagem}}
+            </p>
+        </div>
+    </div>
     <div class="row">
-        <form class="col-sm-7" (ngSubmit)="salvar()">
+        <form #formCadastro="ngForm" class="col-sm-7" (ngSubmit)="salvar()">
             <div class="form-group">
-                <label for="">Titulo</label>
-                <input [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
+                <label for="">Titulo*</label>
+                <input 
+                    #titulo="ngModel"
+                    required
+                    [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
+                
+                <span *ngIf="titulo.invalid && titulo.touched" class="form-control alert-danger">
+                    Campo obrigatório
+                </span>
             </div>
-
             <div class="form-group">
-                <label for="">Url</label>
-                <input [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+                <label for="">Url*</label>
+                <input 
+                    #url="ngModel"
+                    required [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+                <span *ngIf="url.invalid && url.touched" class="form-control alert-danger">
+                    Campo obrigatório
+                </span>
             </div>
-
             <div class="form-group">
                 <label for="">Descrição</label>
                 <textarea [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
             </div>
-
             <a routerLink="" class="btn btn-secondary">Voltar</a>
-            <button class="btn btn-primary">Salvar</button>
+            <button [disabled]="formCadastro.invalid" class="btn btn-primary">Salvar</button>
         </form>
         <aside class="col-sm-5">
-            <painel titulo="{{foto.titulo}}">
+            <painel titulo="{{foto.titulo}}" *ngIf="foto.url && foto.titulo">
                 <foto titulo="{{foto.titulo}}" url="{{foto.url}}"></foto>
             </painel>
         </aside>

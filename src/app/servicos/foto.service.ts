@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
 
 import { FotoComponent } from "../foto/foto.component";
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class FotoService {
@@ -17,14 +18,18 @@ export class FotoService {
         return this.conexaoApi.get<FotoComponent[]>(this.url)
     }
 
-    cadastrar(foto: FotoComponent): Observable<Object> {
+    cadastrar(foto: FotoComponent): Observable<Mensagens> {
 
         return this.conexaoApi
                     .post(
                         this.url
                         ,JSON.stringify(foto)
                         ,this.opcoesHttp
-                        )
+                    )
+                    .map(
+                        () => new Mensagens(`Foto ${foto.titulo} cadastrada com sucesso`)
+                    )
+
 
     }
     
@@ -36,5 +41,25 @@ export class FotoService {
         return this.conexaoApi.get<FotoComponent>(this.url+fotoId)
     }
 
-    alterar(){}
+    alterar(foto: FotoComponent): Observable<Mensagens>{
+
+        return this.conexaoApi.put(
+                                    this.url+foto._id
+                                    , JSON.stringify(foto)
+                                    , this.opcoesHttp
+                                )
+                                .map(
+                                    () => new Mensagens(`Foto ${foto.titulo} alterada com sucesso`)
+                                )
+    }
+}
+
+class Mensagens {
+
+    constructor(private _texto: string){}
+
+    get texto(){
+        return this._texto
+    }
+
 }
