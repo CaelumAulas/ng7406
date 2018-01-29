@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
 import { FotoService } from '../servicos/foto.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
   selector: 'cp-cadastro',
@@ -12,11 +13,16 @@ export class CadastroComponent implements OnInit {
 
     foto = new FotoComponent()
     mensagem = ''
+    formCadastro: FormGroup
 
     constructor(private servico: FotoService,
                 private rota: ActivatedRoute,
-                private roteador: Router) {
+                private roteador: Router,
+                private formBuilder: FormBuilder) {
 
+            
+            this.validacaoForm()
+           
             rota.params.subscribe(
                 parametros => {
 
@@ -29,6 +35,20 @@ export class CadastroComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    validacaoForm(){
+
+        this.formCadastro = this.formBuilder.group({
+            titulo: ['', [
+                Validators.required,
+                Validators.minLength(3)
+            ]
+            ],
+            url: ['', Validators.required],
+            descricao: ''
+        })
+
+    }
 
     carregarFoto(idFoto){
         this.servico.consultar(idFoto)
